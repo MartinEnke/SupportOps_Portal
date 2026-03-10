@@ -2,6 +2,8 @@ package com.martinenke.supportopsbackend.controller;
 
 import com.martinenke.supportopsbackend.dto.IncidentRequestDto;
 import com.martinenke.supportopsbackend.dto.IncidentResponseDto;
+import com.martinenke.supportopsbackend.model.IncidentPriority;
+import com.martinenke.supportopsbackend.model.IncidentStatus;
 import com.martinenke.supportopsbackend.service.IncidentService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +21,11 @@ public class IncidentController {
     }
 
     @GetMapping
-    public List<IncidentResponseDto> getAllIncidents() {
-        return incidentService.getAllIncidents();
+    public List<IncidentResponseDto> getAllIncidents(
+            @RequestParam(required = false) IncidentStatus status,
+            @RequestParam(required = false) IncidentPriority priority
+    ) {
+        return incidentService.getAllIncidents(status, priority);
     }
 
     @GetMapping("/{id}")

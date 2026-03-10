@@ -4,6 +4,8 @@ import com.martinenke.supportopsbackend.dto.IncidentRequestDto;
 import com.martinenke.supportopsbackend.dto.IncidentResponseDto;
 import com.martinenke.supportopsbackend.exception.ResourceNotFoundException;
 import com.martinenke.supportopsbackend.model.Incident;
+import com.martinenke.supportopsbackend.model.IncidentPriority;
+import com.martinenke.supportopsbackend.model.IncidentStatus;
 import com.martinenke.supportopsbackend.repository.IncidentRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,9 +20,20 @@ public class IncidentService {
         this.incidentRepository = incidentRepository;
     }
 
-    public List<IncidentResponseDto> getAllIncidents() {
-        return incidentRepository.findAll()
-                .stream()
+    public List<IncidentResponseDto> getAllIncidents(IncidentStatus status, IncidentPriority priority) {
+        List<Incident> incidents;
+
+        if (status != null && priority != null) {
+            incidents = incidentRepository.findByStatusAndPriority(status, priority);
+        } else if (status != null) {
+            incidents = incidentRepository.findByStatus(status);
+        } else if (priority != null) {
+            incidents = incidentRepository.findByPriority(priority);
+        } else {
+            incidents = incidentRepository.findAll();
+        }
+
+        return incidents.stream()
                 .map(this::toResponseDto)
                 .toList();
     }
