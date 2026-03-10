@@ -20,6 +20,12 @@ export class App implements OnInit {
   submitError = '';
   submitting = false;
 
+  selectedStatus = '';
+  selectedPriority = '';
+
+  statusOptions = ['OPEN', 'IN_PROGRESS', 'WAITING', 'RESOLVED', 'CLOSED'];
+  priorityOptions = ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'];
+
   formData: CreateIncidentPayload = {
     title: '',
     description: '',
@@ -38,27 +44,39 @@ export class App implements OnInit {
     this.loading = true;
     this.error = '';
 
-    this.incidentService.getIncidents().subscribe({
-      next: (data) => {
-        this.incidents = data;
-        this.loading = false;
-      },
-      error: () => {
-        this.error = 'Failed to load incidents.';
-        this.loading = false;
-      }
-    });
+    this.incidentService
+      .getIncidents(this.selectedStatus || undefined, this.selectedPriority || undefined)
+      .subscribe({
+        next: (data) => {
+          this.incidents = data;
+          this.loading = false;
+        },
+        error: () => {
+          this.error = 'Failed to load incidents.';
+          this.loading = false;
+        }
+      });
   }
+
+  applyFilters(): void {
+    this.loadIncidents();
+  }
+
+  resetFilters(): void {
+  this.selectedStatus = undefined as any;
+  this.selectedPriority = undefined as any;
+  this.loadIncidents();
+}
 
   onSubmit(): void {
     this.submitError = '';
     this.submitting = true;
 
     this.incidentService.createIncident(this.formData).subscribe({
-      next: (createdIncident) => {
-        this.incidents = [createdIncident, ...this.incidents];
+      next: () => {
         this.resetForm();
         this.submitting = false;
+        this.loadIncidents();
       },
       error: (err) => {
         this.submitting = false;

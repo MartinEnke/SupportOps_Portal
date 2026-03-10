@@ -1,0 +1,2 @@
+backend: supportops-backend git:(main) ✗ ./mvnw spring-boot:run
+frontend: supportops-ui git:(main) ✗ ng serve

@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Incident } from '../models/incident.model';
 
@@ -20,9 +20,20 @@ export class IncidentService {
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost:8080/api/incidents';
 
-  getIncidents(): Observable<Incident[]> {
-    return this.http.get<Incident[]>(this.apiUrl);
+  getIncidents(status?: string, priority?: string) {
+
+  let params: any = {};
+
+  if (status) {
+    params.status = status;
   }
+
+  if (priority) {
+    params.priority = priority;
+  }
+
+  return this.http.get<Incident[]>(this.apiUrl, { params });
+}
 
   createIncident(payload: CreateIncidentPayload): Observable<Incident> {
     return this.http.post<Incident>(this.apiUrl, payload);
