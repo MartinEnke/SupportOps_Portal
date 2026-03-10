@@ -1,0 +1,25 @@
+# Maven
+target/
+.mvn/wrapper/maven-wrapper.jar
+
+# Java
+*.class
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+
+# H2 database
+*.mv.db
+*.trace.db
+
+# build
+node_modules/
+
+# environment
+.env
