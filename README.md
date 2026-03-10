@@ -9,18 +9,10 @@ Angular frontend UI.
 
 ------------------------------------------------------------------------
 
-# Screenshots
-
-> Replace these placeholder images with screenshots from your running
-> application.
-
-## Incident Dashboard
-
-![Dashboard](screenshots/dashboard.png)
 
 ## Create Incident
 
-![Create Incident](screenshots/create-incident.png)
+![Create Incident](/screenshots/create-incident.jpg)
 
 ------------------------------------------------------------------------
 
