@@ -1,17 +1,45 @@
 .container {
-  max-width: 900px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 2rem;
   font-family: Arial, sans-serif;
 }
 
-h1 {
+h1, h2 {
   margin-bottom: 0.5rem;
 }
 
 .subtitle {
   color: #666;
   margin-bottom: 2rem;
+}
+
+.form-section,
+.list-section {
+  margin-bottom: 2rem;
+}
+
+.incident-form {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fafafa;
+}
+
+.incident-form input,
+.incident-form textarea,
+.incident-form select,
+.incident-form button {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.incident-form button {
+  cursor: pointer;
 }
 
 .incident-list {
@@ -23,9 +51,10 @@ h1 {
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 1rem;
-  background: #fff;
+  background: white;
 }
 
 .error {
   color: #b00020;
+  margin-top: 0.75rem;
 }
